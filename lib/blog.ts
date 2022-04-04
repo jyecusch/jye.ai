@@ -4,6 +4,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { default as gfm } from 'remark-gfm'
 import { default as rehypeSlug } from 'rehype-slug'
 import path from 'path'
+//@ts-ignore
 import * as humanizeDuration from 'humanize-duration'
 
 const lastUpdated = (updated: Date): string => {
