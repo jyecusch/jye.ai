@@ -29,8 +29,11 @@ export const mdxComponents = {
     <h6 className="pt-4 font-bold text-gray-800 antialiased" {...props} />
   ),
   blockquote: (props: any) => (
-    <div className="px-2 py-4 text-md text-gray-600">
-      <div className="border-l-2 border-gray-300 bg-gray-50 p-2 italic" {...props} />
+    <div className="text-md px-0 py-4 text-gray-600">
+      <div
+        className="border-l-2 border-gray-300 bg-white p-2 italic"
+        {...props}
+      />
     </div>
   ),
   ul: (props: any) => (
@@ -40,9 +43,21 @@ export const mdxComponents = {
     <ol className="list-outside list-decimal py-2 pl-6" {...props} />
   ),
   li: (props: any) => <li {...props} />,
-  a: (props: any) => <a className="text-blue-600 underline" {...props} />,
-  pre: (props: any) => <pre className="py-1 px-2 rounded font-mono text-sm text-gray-100 bg-cyan-900" {...props} />,
-  code: (props: any) => <code className="p-0.5 rounded font-mono text-sm  bg-cyan-100" {...props} />,
+  a: (props: any) => (
+    <a className="font-medium text-blue-600 underline" {...props} />
+  ),
+  pre: (props: any) => (
+    <pre
+      className="font-mono my-2 rounded border border-gray-50 bg-white py-1 px-2 text-sm text-gray-900 antialiased"
+      {...props}
+    />
+  ),
+  code: (props: any) => (
+    <code
+      className="font-mono rounded border border-gray-50 bg-white p-0.5 text-sm text-gray-900 antialiased"
+      {...props}
+    />
+  ),
   img: (props: any) => (
     <div className="relative mx-auto h-64 w-96">
       <Image layout="fill" {...props} />
@@ -63,7 +78,7 @@ export const mdxComponents = {
     <thead className="bg-gray-50 dark:bg-gray-700" {...props} />
   ),
   tbody: (props: any) => (
-    <tbody className="bg-white dark:bg-slate-800" {...props} />
+    <tbody className="dark:bg-slate-800 bg-white" {...props} />
   ),
   th: (props: any) => (
     <th

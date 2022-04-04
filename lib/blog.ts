@@ -3,11 +3,24 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { default as gfm } from 'remark-gfm'
 import { default as rehypeSlug } from 'rehype-slug'
-import * as humanizeDuration from 'humanize-duration'
 import path from 'path'
+import * as humanizeDuration from 'humanize-duration'
+
+const lastUpdated = (updated: Date): string => {
+  const age = new Date().getTime() - updated.getTime()
+  return `${humanizeDuration(age, { largest: 1 })} ago`
+}
 
 const EXT_PATTERN = /\.mdx?/
 const POSTS_DIR = path.join(process.cwd(), 'blog')
+
+// remove published date, it can't be serialized to JSON
+export type PropPost = Omit<Post, 'published'> & { published_human: string }
+
+export const postToPropPost = ({ published, ...rest }: Post): PropPost => ({
+  ...rest,
+  published_human: lastUpdated(published),
+})
 
 const getAllPostFilenames =async () => {
   return (await fs.readdir(POSTS_DIR))
@@ -21,16 +34,11 @@ export const getPostSlugs = async (): Promise<string[]> => {
     .map(filenameToSlug)
 }
 
-const lastUpdated = (updated: Date): string => {
-  const age = new Date().getTime() - updated.getTime()
-  return `${humanizeDuration(age, { largest: 1 })} ago`
-}
-
 export interface Post {
   slug: string
   title: string
   description: string
-  human_date: string
+  published: Date
   content: MDXRemoteSerializeResult
 }
 
@@ -56,7 +64,7 @@ export const getPost = async (slug: string): Promise<Post> => {
     slug,
     title: frontmatter!.title,
     description: frontmatter!.description,
-    human_date: lastUpdated(frontmatter!.date as unknown as Date),
+    published: frontmatter!.date as unknown as Date,
     content: mdxSource,
   }
 }
