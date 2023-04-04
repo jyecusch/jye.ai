@@ -28,6 +28,9 @@ export const mdxComponents = {
   h5: (props: any) => (
     <h6 className="pt-4 font-bold text-gray-800 antialiased" {...props} />
   ),
+  p: (props: any) => (
+    <p className='py-3' {...props} />
+  ),
   blockquote: (props: any) => (
     <div className="text-md px-0 py-4 text-gray-600">
       <div
